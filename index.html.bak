@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>SWE632-Painter</title>
+		<link rel="stylesheet" href="assets/css/index.css" />
+		<link rel="stylesheet" href="assets/css/imageItem.css" />
+		<link rel="stylesheet" href="assets/libs/Semantic-UI-master/dist/semantic.min.css" />
+		<link rel="stylesheet" href="assets/libs/colpick/css/colpick.css" />
+		<link rel="stylesheet" href="assets/css/icon/iconfont.css" />
+		<link rel="stylesheet" href="assets/libs/noUiSlider-master/distribute/nouislider.min.css" />
+
+		<script src="assets/libs/jquery/jquery-2.1.1.min.js"></script>
+		<script src="assets/libs/Semantic-UI-master/dist/semantic.min.js"></script>
+		<script src="assets/libs/colpick/js/colpick.js"></script>
+		<script src="assets/libs/noUiSlider-master/distribute/nouislider.min.js"></script>
+		<script src="assets/libs/TinyColor-master/dist/tinycolor-min.js"></script>
+		<script src="assets/libs/JSManipulate-master/script/minified/jsmanipulate.min.js"></script>
+		<script src="assets/libs/canvas-flood-fill-master/js/floodFillLinear.js"></script>
+		<script src="assets/libs/canvas-flood-fill-master/js/utils.js"></script>
+		<script src="assets/libs/get-canvas-pixel-color-master/dist/get-canvas-pixel-color.min.js"></script>
+		<script src="assets/libs/js-base64/base64.min.js"></script>
+
+		<script src="assets/js/painter.1.0.min.js"></script>
+	</head>
+	<body>
+		<div id="preload">
+			<img src="assets/image/cursors/bucket.png" />
+			<img src="assets/image/cursors/CrossHair.gif" />
+			<img src="assets/image/cursors/eraser.png" />
+			<img src="assets/image/cursors/Eyedropper.png" />
+			<img src="assets/image/cursors/zoomIn.png" />
+			<img src="assets/image/cursors/zoomOut.png" />
+		</div>
+		<div id="topMenu" class="ui menu">
+			<div class="header item"><img src="assets/image/logo.png">Painter</div>
+		    <div class="ui dropdown item">
+					<div <input type="button" value="newpage" onclick="javascript: location.reload(true)">
+		    	New page
+		    	</div>
+				</div>
+				<div class="ui dropdown item">
+					<div <input type="button" value="save">
+		    	Save
+		    	</div>
+		    </div>
+		    <div class="ui dropdown item">
+		    	Member List
+		    	<div class="menu" style="min-width: 200px;">
+		    		<div class="item">
+		    			<span class="text">Xiang Wu</span>
+		    			<span class="description">G00995509</span>
+		    		</div>
+		    		<div class="item">
+		    			<span class="text">Chufan Yu</span>
+		    			<span class="description">G00000000</span>
+		    		</div>
+		    		<div class="item">
+		    			<span class="text">Yuxin Tian</span>
+		    			<span class="description">G01025907</span>
+		    		</div>
+		    	</div>
+		    </div>
+		    <div class="right menu">
+		    	<div class="ui dropdown item">
+		    		<div class="menu"></div>
+		    	</div>
+		    	<div class="ui dropdown item">
+		    		<div class="text"></div>
+		    		<div class="menu">
+		    			<a class="item" data-value="properties">Properties</a>
+		    		</div>
+			    </div>
+		    </div>
+		</div>
+		<div id="mainLayout">
+			<div id="leftBox">
+				<div id="toolPanel">
+					<div class="ui vertical basic icon buttons">
+						<button class="ui button"><i class="paint brush icon"></i></button>
+						<button class="ui button"><i class="erase icon"></i></button>
+						<button class="ui button"><i class="eyedropper icon"></i></button>
+						<button class="ui button"><i class="icon iconfont">&#xe687;</i></button>
+						<button class="ui button"><i class="zoom icon"></i></button>
+					</div>
+				</div>
+			</div>
+			<div class="vDivide"><div class="handle"></div></div>
+			<div id="centerBox"></div>
+			<div class="vDivide"><div class="handle"></div></div>
+			<div id="rightBox">
+					<div id="propertiesPanel">
+						<div id="header"></div>
+						<div style="padding:5px;">
+							<div class="ui top attached tabular menu">
+								<a class="item active" data-tab="properties">Properties Pane</a>
+							</div>
+							<div class="ui bottom attached tab segment active" data-tab="properties">
+								<div class="ui small form"></div>
+							</div>
+						</div>
+					</div>
+					<div id="layerPanel" style="margin: 5px;">
+						<div class="ui bottom attached tab segment active" data-tab="layers">
+							<div id="listContainer" style="overflow: auto;">
+								<div class="ui divided selection list"></div>
+							</div>
+							<div id="layerToolBar">
+								<div class="ui divider" style="margin-top: 5px;margin-bottom: 10px;"></div>
+								<div class="ui center aligned padded grid" style="font-size: 12px;padding-bottom:10px;">
+									<div class="three wide column" style="padding: 0;">Transparency</div>
+									<div class="eleven wide column" style="padding:0;">
+										<div class="ui slider" style="width: 87%;margin: auto;"></div>
+									</div>
+									<div id="alphaValue" class="two wide column" style="padding: 0;">100%</div>
+								</div>
+								<div class="ui icon basic buttons">
+									<button class="ui button"><i class="plus icon"></i></button>
+									<button class="ui button"><i class="minus icon"></i></button>
+								</div>
+								<div class="ui icon basic buttons">
+									<button class="ui button"><i class="arrow circle up icon"></i></button>
+									<button class="ui button"><i class="arrow circle down icon"></i></button>
+									<button class="ui button"><i class="arrow up icon"></i></button>
+									<button class="ui button"><i class="arrow down icon"></i></button>
+								</div>
+								<div class="ui right floated icon basic buttons">
+									<button class="ui button"><i class="wizard icon"></i></button>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+		<div id="materialSelectWin" class="ui modal">
+			<div class="header"><i class="file text icon"></i>Material</div>
+			<div class="content"></div>
+			<div class="actions">
+				<button class="ui primary  button">Choose</button>
+			</div>
+		</div>
+		<div id="brushShapeSelectWin" class="ui modal">
+			<div class="header"><i class="paint brush icon"></i>Brush shape</div>
+			<div class="content"></div>
+			<div class="actions">
+				<button class="ui primary button">Choose</button>
+			</div>
+		</div>
+
+	</body>
+</html>
